@@ -66,7 +66,7 @@ class Villain(Groundhero):
     def crit(self, hero):
         hero.damage **= 2
 
-villain = Villain('Lex Luthor', 'Lex', 'Genius Intellect', 100, 'I am the greatest criminal mind of our time!', 30)
+villain = Villain('Arthur Fleck', 'Joker', 'Master Manipulator', 80, 'Why so serious?', 25)
 villain.crit(air_hero)
 print(air_hero.damage)
 
