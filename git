@@ -1,4 +1,4 @@
-git config --global user.name/user.email "name/email"
+git config --global user.name/user.email "na me/email"
 
 git init
 git remote add origin link
