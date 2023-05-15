@@ -14,7 +14,7 @@ class Bank:
 
     def __jackpot(self):
         self._balance *= 10
-        print(f"Поздравляем! Ваш баланс увеличен в 10 раз: {self._balance}")
+        print(f"Ваш баланс увеличен в 10 раз: {self._balance}")
 
     def merge_balance(self, other):
         self._balance += other._balance
