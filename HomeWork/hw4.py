@@ -27,3 +27,4 @@ class RealEstate(Asset, InsurableItem):
 
 class Bond(Security):
     pass
+
