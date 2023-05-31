@@ -1,49 +1,48 @@
 import sqlite3
 
-conn = sqlite3.connect('students.db')
-cursor = conn.cursor()
+db = sqlite3.connect('hw.db')
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS students
-                (id INTEGER PRIMARY KEY,
-                hobby TEXT,
-                first_name TEXT,
-                last_name TEXT,
-                birth_year INTEGER,
-                homework_score INTEGER)''')
+c = db.cursor()
 
-students_data = [
-    ('Reading', 'Ruslan', 'Rizaev', 1998, 8),
-    ('Painting', 'Azim', 'Mustapaev', 1999, 12),
-    ('Singing', 'Akmal', 'Atakanov', 1997, 15),
-    ('Sports', 'Sanjar', 'Konushbekov', 1998, 6),
-    ('Gaming', 'Akdil', 'Keneshbekov', 1999, 14),
-    ('Cooking', 'Salamat', 'Biygaziev', 1997, 10),
-    ('Photography', 'Imaraliev', 'Omurbek', 1998, 9),
-    ('Writing', 'Usupbekov', 'Beksultan', 1999, 11),
-    ('Music', 'Kazybekov', 'Bakay', 1997, 13),
-    ('Dancing', 'Usubaliev', 'Adil', 1998, 7)
-]
+c.execute('''CREATE TABLE IF NOT EXISTS user (
+hobby text,
+name text,
+surname text,
+year integer,
+points integer
+)''')
 
-cursor.executemany('INSERT INTO students (hobby, first_name, last_name, birth_year, homework_score) VALUES (?, ?, ?, ?, ?)', students_data)
+# c.execute("INSERT INTO user VALUES ('football', 'Азимбек', 'Мустапаев', 2002, 10)")
+# c.execute("INSERT INTO user VALUES ('valebol', 'Акдил', 'Кенешбеков', 1990, 10)")
+# c.execute("INSERT INTO user VALUES ('basketball', 'Санжар', 'Конушбеков', 2001, 9)")
+# c.execute("INSERT INTO user VALUES ('football', 'Саламат', 'Бийгазиев', 2000, 10)")
+# c.execute("INSERT INTO user VALUES ('basketball', 'Адиль', 'Усубалиев', 1993, 5)")
+# c.execute("INSERT INTO user VALUES ('valebol', 'Эдиль', 'Аверов', 2004, 5)")
+# c.execute("INSERT INTO user VALUES ('basketball', 'Арзыбек', 'Абдырахманов', 1999, 10)")
+# c.execute("INSERT INTO user VALUES ('valebol', 'Нурислам', 'Аюдыкайымов', 2002, 10)")
+# c.execute("INSERT INTO user VALUES ('football', 'Бектур', 'Орозбеков', 2001, 10)")
+# c.execute("INSERT INTO user VALUES ('football', 'Акылбек', 'Романов', 2001, 10)")
+# c.execute("SELECT rowid FROM user")
 
-conn.commit()
+c.execute("UPDATE user SET name = 'genius' WHERE points = 10")
+c.execute("SELECT rowid, surname, name FROM user ")
 
-cursor.execute('SELECT * FROM students WHERE length(last_name) > 10')
-results = cursor.fetchall()
-print("Студенты с фамилией более 10 символов:")
-for row in results:
-    print(row)
+items = c.fetchall()
 
-cursor.execute("UPDATE students SET first_name = 'genius' WHERE homework_score > 10")
+print(items)
 
-cursor.execute("SELECT * FROM students WHERE first_name = 'genius'")
-results = cursor.fetchall()
-print("Студенты с именем 'genius':")
-for row in results:
-    print(row)
+for i in items:
+    surname = i[1]
+    if len(surname) > 10:
+        print(surname)
+    else:
+        ...
 
-cursor.execute("DELETE FROM students WHERE id % 2 = 0")
+c.execute("SELECT rowid, name FROM user WHERE name = 'genius'")
+c.execute("DELETE FROM user WHERE rowid % 2 = 0")
+print(c.fetchall())
 
-conn.commit()
 
-conn.close()
+
+db.commit()
+db.close()
